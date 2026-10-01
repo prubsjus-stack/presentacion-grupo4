@@ -153,7 +153,8 @@
     .curvas {
       position: fixed;
       inset: -10%;
-      z-index: 1;
+      z-index: 0;
+      opacity: 0.5;
       pointer-events: none;
       transform: translate3d(0, calc(var(--p) * -30px), 0);
       transition: transform 1.1s var(--inout);
@@ -271,8 +272,7 @@
       }
     }
 
-    /* resplandor que respira sobre las curvas */
-    .curvas,
+    /* resplandor que respira: solo dentro de la gráfica, nunca sobre el texto */
     .d-curva {
       animation: respirar 5.5s ease-in-out infinite;
     }
