@@ -207,6 +207,122 @@
     }
 
     /* ═════════════════════════════════════════════════════════
+       CAMBIO DE DIAPOSITIVA · destello radial y partículas
+       ═════════════════════════════════════════════════════════ */
+    .destello {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at var(--px, 50%) var(--py, 50%),
+          rgba(56, 189, 248, 0.2) 0%, rgba(129, 140, 248, 0.09) 30%, transparent 62%);
+    }
+
+    .destello.on {
+      animation: destello 0.9s var(--out);
+    }
+
+    @keyframes destello {
+
+      0% {
+        opacity: 0;
+        transform: scale(0.86);
+      }
+
+      28% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.16);
+      }
+    }
+
+    .chispa {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .chispa i {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #bae6fd;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+      animation: salir 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes salir {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.1);
+        opacity: 0;
+      }
+    }
+
+    /* resplandor que respira sobre las curvas */
+    .curvas,
+    .d-curva {
+      animation: respirar 5.5s ease-in-out infinite;
+    }
+
+    @keyframes respirar {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 13px rgba(56, 189, 248, 0.85));
+      }
+    }
+
+    /* la lista de integrantes entra por escalones */
+    .slide.activo .lista li:nth-child(1) {
+      transition-delay: 0.45s;
+    }
+
+    .slide.activo .lista li:nth-child(2) {
+      transition-delay: 0.53s;
+    }
+
+    .slide.activo .lista li:nth-child(3) {
+      transition-delay: 0.61s;
+    }
+
+    .slide.activo .lista li:nth-child(4) {
+      transition-delay: 0.69s;
+    }
+
+    .slide.activo .lista li:nth-child(5) {
+      transition-delay: 0.77s;
+    }
+
+    .slide.activo .lista li:nth-child(6) {
+      transition-delay: 0.85s;
+    }
+
+    .slide.activo .lista li:nth-child(7) {
+      transition-delay: 0.93s;
+    }
+
+    .slide.activo .lista li:nth-child(8) {
+      transition-delay: 1.01s;
+    }
+
+    /* ═════════════════════════════════════════════════════════
        INTRODUCCIÓN
        ═════════════════════════════════════════════════════════ */
     .intro {
@@ -255,8 +371,8 @@
     body.esperando .curvas,
     body.esperando .lineas,
     body.esperando .vineta,
-    body.esperando .corte,
-    body.esperando .barras {
+    body.esperando .destello,
+    body.esperando .chispa {
       display: none !important;
     }
 
@@ -612,7 +728,14 @@
       gap: clamp(0.6rem, 1.8vw, 1rem);
       padding: clamp(0.3rem, 0.95vh, 0.5rem) 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      transition: padding-left 0.5s var(--out);
+      opacity: 0;
+      transform: translateY(9px);
+      transition: padding-left 0.5s var(--out), opacity 0.55s var(--out), transform 0.55s var(--out);
+    }
+
+    .slide.activo .lista li {
+      opacity: 1;
+      transform: none;
     }
 
     .lista li:last-child {
@@ -1741,6 +1864,8 @@
   </div>
   <div class="lineas" aria-hidden="true"></div>
   <div class="vineta" aria-hidden="true"></div>
+  <div class="destello" id="destello" aria-hidden="true"></div>
+  <div class="chispa" id="chispa" aria-hidden="true"></div>
 
   <!-- ═══ INTRODUCCIÓN ═══ -->
   <div class="intro" id="intro" aria-hidden="true">
@@ -2160,6 +2285,8 @@
       var folio = document.getElementById("folio");
       var folioTotal = document.getElementById("folioTotal");
       var barra = document.getElementById("barraProgreso");
+      var destello = document.getElementById("destello");
+      var chispa = document.getElementById("chispa");
       var N2 = slides.length, idx = 0, arrancado = false;
 
       folioTotal.textContent = ("0" + N2).slice(-2);
@@ -2175,6 +2302,55 @@
         return b;
       });
 
+      /* El número de página cuenta de uno en uno */
+      var cuentaTimer = null;
+
+      function contar(desde, hasta) {
+        clearInterval(cuentaTimer);
+        if (desde === hasta) return;
+        var t0 = null, dur = 420;
+
+        function paso(t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min((t - t0) / dur, 1);
+          var v = Math.round(desde + (hasta - desde) * (1 - Math.pow(1 - k, 3)));
+          folio.textContent = ("0" + v).slice(-2);
+          if (k < 1) cuentaTimer = setTimeout(function () { requestAnimationFrame(paso); }, 16);
+        }
+
+        requestAnimationFrame(paso);
+      }
+
+      /* Destello radial + partículas que salen disparadas hacia fuera.
+         Nada se desplaza de lado a lado. */
+      function explosionar(x, y) {
+        if (!destello || !chispa) return;
+        destello.style.setProperty("--px", x + "px");
+        destello.style.setProperty("--py", y + "px");
+        destello.classList.remove("on");
+        void destello.offsetWidth;
+        destello.classList.add("on");
+
+        var n = 16, fragmento = document.createDocumentFragment();
+        for (var k = 0; k < n; k++) {
+          var p = document.createElement("i");
+          var ang = (Math.PI * 2 * k) / n + Math.random() * 0.35;
+          var dist = 70 + Math.random() * 150;
+          p.style.left = x + "px";
+          p.style.top = y + "px";
+          p.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+          p.style.setProperty("--dy", Math.sin(ang) * dist * 0.8 + "px");
+          p.style.animationDelay = (Math.random() * 0.1).toFixed(3) + "s";
+          if (Math.random() > 0.45) {
+            p.style.background = "#ddd6fe";
+            p.style.boxShadow = "0 0 10px rgba(167, 139, 250, 0.9)";
+          }
+          fragmento.appendChild(p);
+        }
+        chispa.appendChild(fragmento);
+        setTimeout(function () { chispa.innerHTML = ""; }, 1100);
+      }
+
       function profundidad() {
         slides.forEach(function (s, j) {
           var d = j - idx;
@@ -2188,6 +2364,8 @@
 
       function ir(i, sinCorte) {
         if (i < 0 || i >= N2) return;
+        var cambio = i !== idx;
+        var desde = idx + 1;
         idx = i;
         pista.style.transform = "translateY(-" + (idx * (100 / N2)) + "%)";
         slides.forEach(function (s, j) { s.classList.toggle("activo", j === idx); });
@@ -2201,12 +2379,23 @@
         bNext.disabled = idx === N2 - 1;
         document.documentElement.style.setProperty("--p", idx / (N2 - 1));
         document.body.classList.add("avanzada");
+        if (cambio) {
+          folio.textContent = ("0" + desde).slice(-2);
+          contar(desde, idx + 1);
+          explosionar(innerWidth / 2, innerHeight * 0.55);
+        }
         profundidad();
       }
 
-      bPrev.addEventListener("click", function () { ir(idx - 1); });
-      bNext.addEventListener("click", function () { ir(idx + 1); });
+      bPrev.addEventListener("click", function (e) { ir(idx - 1); });
+      bNext.addEventListener("click", function (e) { ir(idx + 1); });
       bPrev.disabled = true;
+
+      /* Si hacen clic en cualquier parte, las partículas nacen ahí */
+      document.querySelector(".deck").addEventListener("pointerdown", function (e) {
+        if (!arrancado) return;
+        explosionar(e.clientX, e.clientY);
+      });
 
       document.addEventListener("keydown", function (e) {
         if (!arrancado) return;
