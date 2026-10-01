@@ -202,38 +202,7 @@
        TRANSICIÓN DE CORTE
        ═════════════════════════════════════════════════════════ */
     .corte {
-      position: fixed;
-      inset: 0;
-      z-index: 55;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .corte i {
-      position: absolute;
-      inset: 0;
-      display: block;
-      background: linear-gradient(100deg, transparent 38%, rgba(200, 225, 255, 0.18) 50%, transparent 62%);
-    }
-
-    .corte.on {
-      animation: cortar 0.9s var(--soft);
-    }
-
-    @keyframes cortar {
-      0% {
-        opacity: 0;
-        transform: translateX(-34%);
-      }
-
-      35% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(34%);
-      }
+      display: none;
     }
 
     .barras {
@@ -511,14 +480,7 @@
     }
 
     .linea {
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-      transition: width 1.6s var(--out) 0.55s;
-    }
-
-    .slide.activo .linea {
-      width: min(80%, 600px);
+      display: none;
     }
 
     .grupo {
