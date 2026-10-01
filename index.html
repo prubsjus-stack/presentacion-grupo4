@@ -505,44 +505,9 @@
       }
     }
 
-    /* velo de luz muy suave que cruza la portada */
+    /* velo de luz eliminado */
     .foco {
-      position: absolute;
-      top: -20%;
-      left: -40%;
-      width: 24%;
-      height: 140%;
-      pointer-events: none;
-      z-index: 1;
-      background: linear-gradient(100deg, transparent, rgba(190, 220, 255, 0.045) 45%, rgba(225, 240, 255, 0.085) 50%, rgba(190, 220, 255, 0.045) 55%, transparent);
-      mix-blend-mode: screen;
-      transform: rotate(10deg) translateX(500%);
-      opacity: 0;
-    }
-
-    .slide.activo .foco {
-      opacity: 1;
-      animation: barrer 9s var(--soft) 1.2s forwards;
-    }
-
-    @keyframes barrer {
-      0% {
-        transform: rotate(10deg) translateX(0);
-        opacity: 0;
-      }
-
-      22% {
-        opacity: 1;
-      }
-
-      78% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: rotate(10deg) translateX(500%);
-        opacity: 0;
-      }
+      display: none;
     }
 
     .linea {
@@ -592,31 +557,8 @@
       top: 0;
       bottom: 0;
       width: 30%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
-      transform: translateX(-200%) skewX(-18deg);
-      animation: brillar 8s var(--soft) 2s infinite;
-    }
-
-    @keyframes brillar {
-
-      0% {
-        transform: translateX(-200%) skewX(-18deg);
-        opacity: 0;
-      }
-
-      22% {
-        opacity: 1;
-      }
-
-      78% {
-        opacity: 1;
-      }
-
-      92%,
-      100% {
-        transform: translateX(450%) skewX(-18deg);
-        opacity: 0;
-      }
+      background: none;
+      display: none;
     }
 
     .esquina {
@@ -1251,36 +1193,8 @@
       top: 0;
       bottom: 0;
       width: 24%;
-      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.09), transparent);
-      transform: translateX(500%);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .slide.activo .eq-foco {
-      opacity: 1;
-      animation: barrerEq 7s var(--soft) 1.4s forwards;
-    }
-
-    @keyframes barrerEq {
-      0% {
-        transform: translateX(-160%);
-        opacity: 0;
-      }
-
-      22% {
-        opacity: 1;
-      }
-
-      78% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateX(500%);
-        opacity: 0;
-      }
+      background: none;
+      display: none;
     }
 
     .donde {
