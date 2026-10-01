@@ -505,42 +505,42 @@
       }
     }
 
-    /* foco de luz que barre el título */
+    /* velo de luz muy suave que cruza la portada */
     .foco {
       position: absolute;
-      top: -10%;
-      left: -30%;
-      width: 45%;
-      height: 130%;
+      top: -20%;
+      left: -40%;
+      width: 24%;
+      height: 140%;
       pointer-events: none;
       z-index: 1;
-      background: linear-gradient(100deg, transparent, rgba(220, 235, 255, 0.13) 45%, rgba(255, 255, 255, 0.22) 50%, rgba(220, 235, 255, 0.13) 55%, transparent);
+      background: linear-gradient(100deg, transparent, rgba(190, 220, 255, 0.045) 45%, rgba(225, 240, 255, 0.085) 50%, rgba(190, 220, 255, 0.045) 55%, transparent);
       mix-blend-mode: screen;
-      transform: rotate(8deg) translateX(400%);
+      transform: rotate(10deg) translateX(500%);
       opacity: 0;
     }
 
     .slide.activo .foco {
       opacity: 1;
-      animation: barrer 2.6s var(--soft) 1.1s forwards;
+      animation: barrer 9s var(--soft) 1.2s forwards;
     }
 
     @keyframes barrer {
       0% {
-        transform: rotate(8deg) translateX(0);
+        transform: rotate(10deg) translateX(0);
         opacity: 0;
       }
 
-      14% {
+      22% {
         opacity: 1;
       }
 
-      86% {
+      78% {
         opacity: 1;
       }
 
       100% {
-        transform: rotate(8deg) translateX(400%);
+        transform: rotate(10deg) translateX(500%);
         opacity: 0;
       }
     }
@@ -591,20 +591,20 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 42%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
-      transform: translateX(-150%) skewX(-18deg);
-      animation: brillar 5.5s var(--soft) 1.8s infinite;
+      width: 30%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+      transform: translateX(-200%) skewX(-18deg);
+      animation: brillar 8s var(--soft) 2s infinite;
     }
 
     @keyframes brillar {
 
       0% {
-        transform: translateX(-150%) skewX(-18deg);
+        transform: translateX(-200%) skewX(-18deg);
         opacity: 0;
       }
 
-      14% {
+      22% {
         opacity: 1;
       }
 
@@ -614,7 +614,7 @@
 
       92%,
       100% {
-        transform: translateX(340%) skewX(-18deg);
+        transform: translateX(450%) skewX(-18deg);
         opacity: 0;
       }
     }
@@ -1250,9 +1250,9 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 38%;
-      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.14), transparent);
-      transform: translateX(400%);
+      width: 24%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+      transform: translateX(500%);
       opacity: 0;
       pointer-events: none;
       z-index: 2;
@@ -1260,7 +1260,7 @@
 
     .slide.activo .eq-foco {
       opacity: 1;
-      animation: barrerEq 2.2s var(--soft) 1.3s forwards;
+      animation: barrerEq 7s var(--soft) 1.4s forwards;
     }
 
     @keyframes barrerEq {
@@ -1269,16 +1269,16 @@
         opacity: 0;
       }
 
-      16% {
+      22% {
         opacity: 1;
       }
 
-      84% {
+      78% {
         opacity: 1;
       }
 
       100% {
-        transform: translateX(380%);
+        transform: translateX(500%);
         opacity: 0;
       }
     }
