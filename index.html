@@ -201,37 +201,9 @@
     /* ═════════════════════════════════════════════════════════
        TRANSICIÓN DE CORTE
        ═════════════════════════════════════════════════════════ */
-    .corte {
-      display: none;
-    }
-
+    .corte,
     .barras {
-      position: fixed;
-      inset: 0;
-      z-index: 56;
-      pointer-events: none;
-    }
-
-    .barras i {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 0;
-      display: block;
-      background: #02040a;
-      transition: height 0.45s var(--inout);
-    }
-
-    .barras i:first-child {
-      top: 0;
-    }
-
-    .barras i:last-child {
-      bottom: 0;
-    }
-
-    .barras.on i {
-      height: 0;
+      display: none;
     }
 
     /* ═════════════════════════════════════════════════════════
@@ -727,14 +699,10 @@
     }
 
     .barra {
-      width: 0;
+      width: clamp(64px, 11vw, 130px);
       height: 1px;
       background: linear-gradient(90deg, var(--az), var(--vi));
-      transition: width 1.4s var(--out) 0.4s;
-    }
-
-    .slide.activo .barra {
-      width: clamp(64px, 11vw, 130px);
+      transition: none;
     }
 
     .cols {
@@ -816,8 +784,8 @@
       height: 1px;
       background: linear-gradient(90deg, rgba(123, 156, 255, 0.5), transparent);
       transform-origin: left;
-      transform: scaleX(0);
-      transition: transform 1s var(--out) 0.5s;
+      transform: scaleX(1);
+      transition: none;
     }
 
     .slide.activo .card-etq::after {
@@ -852,9 +820,9 @@
       height: 0.4em;
       border-radius: 3px;
       background: linear-gradient(90deg, rgba(123, 156, 255, 0.45), rgba(177, 140, 255, 0.36));
-      transform: scaleX(0);
+      transform: scaleX(1);
       transform-origin: left;
-      transition: transform 1s var(--out) 1.15s;
+      transition: none;
       z-index: -1;
     }
 
@@ -1774,10 +1742,6 @@
   <div class="lineas" aria-hidden="true"></div>
   <div class="vineta" aria-hidden="true"></div>
 
-  <!-- ═══ TRANSICIÓN ═══ -->
-  <div class="corte" id="corte" aria-hidden="true"><i></i></div>
-  <div class="barras" id="barras" aria-hidden="true"><i></i><i></i></div>
-
   <!-- ═══ INTRODUCCIÓN ═══ -->
   <div class="intro" id="intro" aria-hidden="true">
     <video id="vid" src="hiperbola-video.mp4" autoplay muted playsinline preload="auto" tabindex="-1"></video>
@@ -2196,8 +2160,6 @@
       var folio = document.getElementById("folio");
       var folioTotal = document.getElementById("folioTotal");
       var barra = document.getElementById("barraProgreso");
-      var corte = document.getElementById("corte");
-      var barras = document.getElementById("barras");
       var N2 = slides.length, idx = 0, arrancado = false;
 
       folioTotal.textContent = ("0" + N2).slice(-2);
@@ -2224,15 +2186,8 @@
         });
       }
 
-      function efectoCorte() {
-        corte.classList.remove("on");
-        void corte.offsetWidth;
-        corte.classList.add("on");
-      }
-
       function ir(i, sinCorte) {
         if (i < 0 || i >= N2) return;
-        var cambio = i !== idx;
         idx = i;
         pista.style.transform = "translateY(-" + (idx * (100 / N2)) + "%)";
         slides.forEach(function (s, j) { s.classList.toggle("activo", j === idx); });
@@ -2246,7 +2201,6 @@
         bNext.disabled = idx === N2 - 1;
         document.documentElement.style.setProperty("--p", idx / (N2 - 1));
         document.body.classList.add("avanzada");
-        if (cambio && !sinCorte) efectoCorte();
         profundidad();
       }
 
