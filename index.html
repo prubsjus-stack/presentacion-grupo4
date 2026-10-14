@@ -1250,6 +1250,26 @@
       display: none;
     }
 
+    .eq-tag {
+      font-family: "JetBrains Mono", monospace;
+      font-size: clamp(0.6rem, 1.5vw, 0.78rem);
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--tx-3);
+      margin: 1rem 0 0.5rem;
+    }
+
+    .rv>.eq-tag:first-child {
+      margin-top: 0;
+    }
+
+    .eq-tag b {
+      color: var(--az);
+      font-weight: 600;
+    }
+
     .donde {
       list-style: none;
       display: grid;
@@ -2227,15 +2247,16 @@
         </div>
       </section>
 
-      <!-- ══════════ 4 · FÓRMULA GENERAL ══════════ -->
+      <!-- ══════════ 4 · FÓRMULAS GENERAL Y ORDINARIA ══════════ -->
       <section class="slide">
         <div class="escenario">
-          <div class="antetitulo2 rv" style="--i:0">Ecuación canónica</div>
-          <h2 class="h2 rv" style="--i:1">Fórmula <span class="ac">General</span></h2>
+          <div class="antetitulo2 rv" style="--i:0">Ecuaciones</div>
+          <h2 class="h2 rv" style="--i:1">General y <span class="ac">Ordinaria</span></h2>
           <div class="barra rv" style="--i:1"></div>
 
           <div class="cols">
             <div class="rv" style="--i:2">
+              <div class="eq-tag">Forma <b>ordinaria</b> · centro (h, k)</div>
               <div class="eq">
                 <span class="eq-foco" aria-hidden="true"></span>
                 <span class="frac" style="--i:0">
@@ -2251,19 +2272,33 @@
                 <span class="eq-cero">1</span>
               </div>
 
+              <div class="eq-tag">Forma <b>general</b></div>
+              <div class="eq">
+                <span><i>A</i><i>x</i><sup>2</sup></span>
+                <span class="op">+</span>
+                <span><i>B</i><i>y</i><sup>2</sup></span>
+                <span class="op">+</span>
+                <span><i>D</i><i>x</i></span>
+                <span class="op">+</span>
+                <span><i>E</i><i>y</i></span>
+                <span class="op">+</span>
+                <span><i>F</i></span>
+                <span class="op">=</span>
+                <span class="eq-cero">0</span>
+              </div>
+
               <ul class="donde">
-                <li><span class="clave">h, k</span><span>centro de la hipérbola.</span></li>
-                <li><span class="clave">a</span><span>distancia del centro al vértice.</span></li>
-                <li>
-                  <span class="clave">b</span><span>determina la forma y abertura de la hipérbola.</span>
-                </li>
+                <li><span class="clave">h, k</span><span>centro: h = −D/2A, k = −E/2B.</span></li>
+                <li><span class="clave">A·B&lt;0</span><span>A y B con signos opuestos ⇒ hipérbola.</span></li>
+                <li><span class="clave">a, b</span><span>semiejes: vértices a distancia a, asíntotas ±b/a.</span></li>
+                <li><span class="clave">ejemplo</span><span>la gráfica: 4x² − 9y² − 8x + 18y − 41 = 0.</span></li>
               </ul>
             </div>
 
             <div class="plot sube" style="--i:3">
               <div class="barrido-plot" aria-hidden="true"></div>
               <svg viewBox="0 0 600 600" role="img"
-                aria-label="Gráfica de una hipérbola horizontal con centro en el origen, vértices y focos sobre el eje x">
+                aria-label="Gráfica de una hipérbola horizontal con centro en (h, k) = (1, 1), vértices y focos sobre su eje transversal">
                 <defs>
                   <linearGradient id="gCurve" x1="0%" y1="100%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#4fd1c5" />
@@ -2282,25 +2317,25 @@
 
                 <g id="gGrid"></g>
 
-                <line class="g-asim" x1="62" y1="458.7" x2="538" y2="141.3" />
-                <line class="g-asim" x1="62" y1="141.3" x2="538" y2="458.7" />
+                <line class="g-asim" x1="112" y1="408.7" x2="588" y2="91.3" />
+                <line class="g-asim" x1="112" y1="91.3" x2="588" y2="408.7" />
 
-                <line class="g-eje" x1="38" y1="300" x2="566" y2="300" />
-                <line class="g-eje" x1="300" y1="562" x2="300" y2="40" />
-                <polygon fill="rgba(203,213,225,0.5)" points="571,300 558,294.5 558,305.5" />
-                <polygon fill="rgba(203,213,225,0.5)" points="300,33 294.5,46 305.5,46" />
+                <line class="g-eje" x1="38" y1="250" x2="566" y2="250" />
+                <line class="g-eje" x1="350" y1="562" x2="350" y2="40" />
+                <polygon fill="rgba(203,213,225,0.5)" points="571,250 558,244.5 558,255.5" />
+                <polygon fill="rgba(203,213,225,0.5)" points="350,33 344.5,46 355.5,46" />
 
                 <g class="medida">
-                  <line x1="300" y1="287" x2="450" y2="287" />
-                  <line x1="300" y1="291" x2="300" y2="303" />
-                  <line x1="450" y1="291" x2="450" y2="303" />
-                  <text class="etq etq-dor" x="375" y="278" text-anchor="middle">a</text>
+                  <line x1="350" y1="237" x2="500" y2="237" />
+                  <line x1="350" y1="241" x2="350" y2="253" />
+                  <line x1="500" y1="241" x2="500" y2="253" />
+                  <text class="etq etq-dor" x="425" y="228" text-anchor="middle">a</text>
                 </g>
                 <g class="medida">
-                  <line x1="287" y1="300" x2="287" y2="200" />
-                  <line x1="291" y1="300" x2="303" y2="300" />
-                  <line x1="291" y1="200" x2="303" y2="200" />
-                  <text class="etq etq-dor" x="277" y="254" text-anchor="middle">b</text>
+                  <line x1="337" y1="250" x2="337" y2="150" />
+                  <line x1="341" y1="250" x2="353" y2="250" />
+                  <line x1="341" y1="150" x2="353" y2="150" />
+                  <text class="etq etq-dor" x="327" y="204" text-anchor="middle">b</text>
                 </g>
 
                 <path class="curva" id="rDer"></path>
@@ -2309,30 +2344,30 @@
                 <circle class="corredor" id="runDer" r="11" fill="url(#gRayo)"></circle>
                 <circle class="corredor" id="runIzq" r="11" fill="url(#gRayo)"></circle>
 
-                <line class="guia" x1="480" y1="300" x2="498" y2="278" />
-                <line class="guia" x1="120" y1="300" x2="102" y2="278" />
+                <line class="guia" x1="530" y1="250" x2="534" y2="262" />
+                <line class="guia" x1="170" y1="250" x2="166" y2="262" />
 
-                <circle class="pt" cx="300" cy="300" r="4.5" fill="#cbd5e1" style="animation-delay:2.3s" />
-                <text class="etq cent" x="292" y="291" text-anchor="end">C(h, k)</text>
+                <circle class="pt" cx="350" cy="250" r="4.5" fill="#cbd5e1" style="animation-delay:2.3s" />
+                <text class="etq cent" x="342" y="241" text-anchor="end">C(h, k)</text>
 
-                <circle class="pt" cx="450" cy="300" r="5.5" fill="#fff" style="animation-delay:2.5s" />
-                <circle class="pt" cx="150" cy="300" r="5.5" fill="#fff" style="animation-delay:2.6s" />
-                <text class="etq acc" x="456" y="292">V₁(a, 0)</text>
-                <text class="etq acc" x="144" y="292" text-anchor="end">V₂(−a, 0)</text>
+                <circle class="pt" cx="500" cy="250" r="5.5" fill="#fff" style="animation-delay:2.5s" />
+                <circle class="pt" cx="200" cy="250" r="5.5" fill="#fff" style="animation-delay:2.6s" />
+                <text class="etq acc" x="506" y="242">V₁(h+a, k)</text>
+                <text class="etq acc" x="194" y="242" text-anchor="end">V₂(h−a, k)</text>
 
-                <circle class="pt" cx="480.28" cy="300" r="6" fill="url(#gFoco)" style="animation-delay:2.8s" />
-                <circle class="pt" cx="119.72" cy="300" r="6" fill="url(#gFoco)" style="animation-delay:2.9s" />
-                <text class="etq" x="502" y="276">F₁(c, 0)</text>
-                <text class="etq" x="98" y="276" text-anchor="end">F₂(−c, 0)</text>
+                <circle class="pt" cx="530.28" cy="250" r="6" fill="url(#gFoco)" style="animation-delay:2.8s" />
+                <circle class="pt" cx="169.72" cy="250" r="6" fill="url(#gFoco)" style="animation-delay:2.9s" />
+                <text class="etq" x="536" y="274">F₁(h+c, k)</text>
+                <text class="etq" x="164" y="274" text-anchor="end">F₂(h−c, k)</text>
 
-                <text class="etq-eje" x="556" y="291" text-anchor="end">x</text>
-                <text class="etq-eje" x="314" y="48">y</text>
+                <text class="etq-eje" x="556" y="241" text-anchor="end">x</text>
+                <text class="etq-eje" x="364" y="48">y</text>
               </svg>
 
               <div class="leyenda">
                 <span><i style="background:#818cf8"></i>Focos</span>
                 <span><i style="background:#ffffff"></i>Vértices</span>
-                <span><i style="background:#cbd5e1"></i>Centro</span>
+                <span><i style="background:#cbd5e1"></i>Centro C(1, 1)</span>
                 <span><i style="background:#fbbf24"></i>a · b</span>
               </div>
             </div>
@@ -2487,7 +2522,7 @@
         var g = document.getElementById("gGrid");
         for (var v = -4; v <= 4; v++) {
           if (v === 0) continue;
-          var x = 300 + v * 50, y = 300 - v * 50;
+          var x = 350 + v * 50, y = 250 - v * 50;
           g.appendChild(crear("line", { class: "g-rejilla", x1: x, y1: 52, x2: x, y2: 548 }));
           g.appendChild(crear("line", { class: "g-rejilla", x1: 52, y1: y, x2: 548, y2: y }));
         }
@@ -2495,7 +2530,7 @@
 
       /* ═══ 6. Hipérbola: x²/a² − y²/b² = 1 ═══ */
       (function () {
-        var A = 3, B = 2, S = 50, CX = 300, CY = 300, YMAX = 5.5, N = 400;
+        var A = 3, B = 2, S = 50, CX = 350, CY = 250, YMAX = 5.5, N = 400;
 
         function rama(signo) {
           var pts = [];
