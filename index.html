@@ -409,7 +409,7 @@
     .pista {
       display: flex;
       flex-direction: column;
-      height: 400%;
+      height: 500%;
       width: 100%;
       transition: transform 0.95s var(--inout);
     }
@@ -417,7 +417,7 @@
     .slide {
       position: relative;
       width: 100%;
-      height: 25%;
+      height: 20%;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -888,7 +888,7 @@
     }
 
     /* ═════════════════════════════════════════════════════════
-       2 · DEFINICIÓN
+       3 · DEFINICIÓN
        ═════════════════════════════════════════════════════════ */
     .card-etq {
       display: flex;
@@ -1148,7 +1148,7 @@
     }
 
     /* ═════════════════════════════════════════════════════════
-       3 · FÓRMULA
+       4 · FÓRMULA
        ═════════════════════════════════════════════════════════ */
     .eq {
       position: relative;
@@ -1552,7 +1552,186 @@
     }
 
     /* ═════════════════════════════════════════════════════════
-       4 · RESERVADO
+       2 · HISTORIA (línea de tiempo animada)
+       ═════════════════════════════════════════════════════════ */
+    .historia {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1rem, 2.6vw, 2.4rem);
+      width: 100%;
+      align-items: stretch;
+    }
+
+    @media (min-width: 1040px) {
+      .historia {
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      }
+    }
+
+    .tiempo {
+      position: relative;
+      list-style: none;
+      display: grid;
+      gap: clamp(0.6rem, 1.6vh, 0.9rem);
+      padding-left: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .tiempo::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, var(--az), var(--vi), var(--te));
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.55);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.6s var(--out) 0.5s;
+    }
+
+    .slide.activo .tiempo::before {
+      transform: scaleY(1);
+    }
+
+    .hito {
+      position: relative;
+      padding: clamp(0.65rem, 1.8vh, 0.95rem) clamp(0.85rem, 1.8vw, 1.15rem);
+      border-radius: 14px;
+      background: linear-gradient(158deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.013) 62%);
+      backdrop-filter: blur(22px) saturate(150%);
+      box-shadow: 0 30px 70px -35px rgba(0, 0, 0, 1);
+      border: 1px solid var(--line);
+      opacity: 0;
+      transform: translateX(26px);
+      filter: blur(6px);
+      transition: opacity 0.8s var(--out), transform 0.8s var(--out), filter 0.8s var(--out), border-color 0.4s var(--soft), background 0.4s var(--soft);
+      transition-delay: calc(0.55s + var(--i, 0) * 0.22s);
+    }
+
+    .slide.activo .hito {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+
+    .hito:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.07);
+    }
+
+    .hito::before {
+      content: "";
+      position: absolute;
+      left: calc(-1 * clamp(1.4rem, 3vw, 2rem) + 2px);
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 2px solid var(--az);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+      transform: translateY(-50%) scale(0);
+      transition: transform 0.5s var(--out);
+      transition-delay: calc(0.7s + var(--i, 0) * 0.22s);
+    }
+
+    .slide.activo .hito::before {
+      transform: translateY(-50%) scale(1);
+      animation: pulsoHito 2.6s var(--soft) infinite;
+      animation-delay: calc(1.4s + var(--i, 0) * 0.22s);
+    }
+
+    @keyframes pulsoHito {
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+      }
+
+      50% {
+        box-shadow: 0 0 18px rgba(56, 189, 248, 1), 0 0 30px rgba(129, 140, 248, 0.6);
+      }
+    }
+
+    .fecha {
+      display: inline-block;
+      font-family: "JetBrains Mono", monospace;
+      font-size: clamp(0.6rem, 1.4vw, 0.74rem);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #fff;
+      padding: 0.3em 0.8em;
+      border-radius: 99px;
+      background: linear-gradient(140deg, rgba(56, 189, 248, 0.3), rgba(129, 140, 248, 0.24));
+      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.4);
+      margin-bottom: 0.45em;
+    }
+
+    .hito h4 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(0.82rem, 1.9vw, 1.02rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 0.25em;
+    }
+
+    .hito p {
+      font-size: clamp(0.74rem, 1.75vw, 0.94rem);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--tx-2);
+    }
+
+    .hito p b {
+      color: var(--tx);
+      font-weight: 600;
+    }
+
+    .cono {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(56, 189, 248, 0.1), transparent 65%), rgba(3, 6, 12, 0.45);
+    }
+
+    .cono-plano {
+      opacity: 0;
+      transition: opacity 1s var(--soft) 1.4s;
+    }
+
+    .slide.activo .cono-plano {
+      opacity: 1;
+      animation: flotaPlano 4.5s ease-in-out 2.4s infinite;
+    }
+
+    @keyframes flotaPlano {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .cono-corte {
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      transition: stroke-dashoffset 1.8s var(--out) 1s;
+    }
+
+    .slide.activo .cono-corte {
+      stroke-dashoffset: 0;
+    }
+
+    /* ═════════════════════════════════════════════════════════
+       5 · RESERVADO
        ═════════════════════════════════════════════════════════ */
     .reserva {
       display: grid;
@@ -1615,7 +1794,7 @@
     .progreso i {
       display: block;
       height: 100%;
-      width: 25%;
+      width: 20%;
       background: linear-gradient(90deg, var(--az), var(--vi) 58%, var(--te));
       box-shadow: 0 0 14px rgba(123, 156, 255, 0.7);
       transition: width 0.95s var(--inout);
@@ -1874,7 +2053,7 @@
 
   <div class="progreso" aria-hidden="true"><i id="barraProgreso"></i></div>
   <div class="marca">Grupo 4 <u></u> Hipérbola</div>
-  <div class="folio" aria-hidden="true"><b id="folio">01</b> / <span id="folioTotal">04</span></div>
+  <div class="folio" aria-hidden="true"><b id="folio">01</b> / <span id="folioTotal">05</span></div>
 
   <div class="deck">
     <div class="pista" id="pista">
@@ -1915,7 +2094,74 @@
         </div>
       </section>
 
-      <!-- ══════════ 2 · DEFINICIÓN ══════════ -->
+      <!-- ══════════ 2 · HISTORIA ══════════ -->
+      <section class="slide">
+        <div class="escenario">
+          <div class="antetitulo2 rv" style="--i:0">Orígenes</div>
+          <h2 class="h2 rv" style="--i:1">Historia de la <span class="ac">Hipérbola</span></h2>
+          <div class="barra rv" style="--i:1"></div>
+
+          <div class="historia">
+            <div class="card rv" style="--i:2">
+              <h3 class="card-etq">Del cono a la órbita</h3>
+              <p class="texto">
+                Nace en la <b>Grecia clásica</b> al cortar un <span class="sub">cono con un plano</span>:
+                si el plano es casi paralelo al eje, aparecen <b>dos ramas</b> opuestas.
+                De un problema geométrico pasó a describir <b>cometas, antenas y naves espaciales</b>.
+              </p>
+              <svg class="cono" viewBox="0 0 460 210" role="img" aria-label="Cono cortado por un plano que genera una hipérbola">
+                <defs>
+                  <linearGradient id="gCono" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" />
+                    <stop offset="100%" stop-color="#818cf8" />
+                  </linearGradient>
+                </defs>
+                <!-- doble cono -->
+                <path d="M 230 12 L 130 100 L 330 100 Z" fill="rgba(56,189,248,0.10)" stroke="rgba(148,163,184,0.5)" stroke-width="1.2" />
+                <path d="M 230 198 L 130 110 L 330 110 Z" fill="rgba(129,140,248,0.10)" stroke="rgba(148,163,184,0.5)" stroke-width="1.2" />
+                <!-- plano de corte -->
+                <g class="cono-plano">
+                  <rect x="110" y="52" width="240" height="10" rx="5" transform="rotate(-14 230 57)" fill="rgba(251,191,36,0.28)" stroke="#fbbf24" stroke-width="1.4" />
+                  <text x="358" y="40" fill="#fbbf24" font-size="12" font-family="Inter,sans-serif">plano</text>
+                </g>
+                <!-- ramas resultantes -->
+                <path class="cono-corte" d="M 168 62 C 150 95, 148 130, 162 168 M 292 62 C 310 95, 312 130, 298 168" fill="none" stroke="url(#gCono)" stroke-width="3" stroke-linecap="round" />
+                <text x="230" y="192" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-family="Inter,sans-serif">doble cono + plano = hipérbola</text>
+              </svg>
+              <div class="etiquetas">
+                <span class="chip" style="--c:#38bdf8"><i></i>Grecia</span>
+                <span class="chip" style="--c:#818cf8"><i></i>Apolonio</span>
+                <span class="chip" style="--c:#fbbf24"><i></i>Órbitas</span>
+              </div>
+            </div>
+
+            <ol class="tiempo">
+              <li class="hito" style="--i:0">
+                <span class="fecha">~350 a. C.</span>
+                <h4>Menecmo y el cono</h4>
+                <p>Corta conos para intentar <b>duplicar el cubo</b> y descubre las secciones cónicas.</p>
+              </li>
+              <li class="hito" style="--i:1">
+                <span class="fecha">~200 a. C.</span>
+                <h4>Apolonio la bautiza</h4>
+                <p>En su obra <b>Cónicas</b> la llama <b>hyperbolē</b> (“exceso”) y estudia focos, ejes y asíntotas.</p>
+              </li>
+              <li class="hito" style="--i:2">
+                <span class="fecha">S. XVII</span>
+                <h4>Kepler · Galileo · Newton</h4>
+                <p>Los <b>cometas</b> y proyectiles describen trayectorias hiperbólicas: la curva sale al cielo.</p>
+              </li>
+              <li class="hito" style="--i:3">
+                <span class="fecha">S. XX – XXI</span>
+                <h4>Antenas y naves</h4>
+                <p><b>LORAN, radiotelescopios</b> y asistencias gravitatorias usan la hipérbola para navegar.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ 3 · DEFINICIÓN ══════════ -->
       <section class="slide">
         <div class="escenario">
           <div class="antetitulo2 rv" style="--i:0">Concepto</div>
@@ -1981,7 +2227,7 @@
         </div>
       </section>
 
-      <!-- ══════════ 3 · FÓRMULA GENERAL ══════════ -->
+      <!-- ══════════ 4 · FÓRMULA GENERAL ══════════ -->
       <section class="slide">
         <div class="escenario">
           <div class="antetitulo2 rv" style="--i:0">Ecuación canónica</div>
@@ -2094,7 +2340,7 @@
         </div>
       </section>
 
-      <!-- ══════════ 4 · RESERVADO ══════════ -->
+      <!-- ══════════ 5 · RESERVADO ══════════ -->
       <section class="slide">
         <div class="reserva">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
