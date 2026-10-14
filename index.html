@@ -794,6 +794,81 @@
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.11), transparent);
     }
 
+    /* Equipo · rejilla de integrantes con avatares */
+    .equipo {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(0.4rem, 1.1vh, 0.6rem);
+    }
+
+    @media (min-width: 640px) {
+      .equipo {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .miembro {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: clamp(0.4rem, 1vh, 0.55rem) clamp(0.6rem, 1.5vw, 0.85rem);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      opacity: 0;
+      transform: translateY(14px) scale(0.97);
+      filter: blur(6px);
+      transition: opacity 0.6s var(--out), transform 0.6s var(--out), filter 0.6s var(--out), border-color 0.35s var(--soft), background 0.35s var(--soft);
+      transition-delay: calc(0.5s + var(--i, 0) * 0.08s), calc(0.5s + var(--i, 0) * 0.08s), calc(0.5s + var(--i, 0) * 0.08s), 0s, 0s;
+    }
+
+    .slide.activo .miembro {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+
+    .miembro:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(56, 189, 248, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -14px rgba(56, 189, 248, 0.55);
+    }
+
+    .avatar {
+      flex-shrink: 0;
+      width: 2.3em;
+      height: 2.3em;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: clamp(0.62rem, 1.5vw, 0.74rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      background: linear-gradient(135deg, #0ea5e9, #7c3aed);
+      box-shadow: 0 0 14px -2px rgba(56, 189, 248, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .miembro:nth-child(4n+2) .avatar {
+      background: linear-gradient(135deg, #818cf8, #4fd1c5);
+      box-shadow: 0 0 14px -2px rgba(129, 140, 248, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .miembro:nth-child(4n+3) .avatar {
+      background: linear-gradient(135deg, #7c3aed, #38bdf8);
+    }
+
+    .miembro:nth-child(4n+4) .avatar {
+      background: linear-gradient(135deg, #4fd1c5, #818cf8);
+      box-shadow: 0 0 14px -2px rgba(79, 209, 197, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .miembro .nombre {
+      white-space: normal;
+      line-height: 1.35;
+    }
+
     /* ═════════════════════════════════════════════════════════
        TIPOGRAFÍA COMÚN
        ═════════════════════════════════════════════════════════ */
@@ -2100,16 +2175,16 @@
               <span>Integrantes</span>
               <b>08</b>
             </div>
-            <ul class="lista">
-              <li><span class="n">01</span><span class="nombre">Juan David Quintana Rojas</span><i class="linea-n"></i></li>
-              <li><span class="n">02</span><span class="nombre">Justin David Mendoza Ortiz</span><i class="linea-n"></i></li>
-              <li><span class="n">03</span><span class="nombre">Karol Juliana Villamil Villamil</span><i class="linea-n"></i></li>
-              <li><span class="n">04</span><span class="nombre">Nicolas Herran Bedoya</span><i class="linea-n"></i></li>
-              <li><span class="n">05</span><span class="nombre">Jeronimo Rodriguez Huertas</span><i class="linea-n"></i></li>
-              <li><span class="n">06</span><span class="nombre">Juan Camilo Castillo Garavito</span><i class="linea-n"></i></li>
-              <li><span class="n">07</span><span class="nombre">David Alejandro Diaz Farfan</span><i class="linea-n"></i></li>
-              <li><span class="n">08</span><span class="nombre">Laura</span><i class="linea-n"></i></li>
-            </ul>
+            <div class="equipo">
+              <div class="miembro" style="--i:0"><span class="avatar">JQ</span><span class="nombre">Juan David Quintana Rojas</span></div>
+              <div class="miembro" style="--i:1"><span class="avatar">JM</span><span class="nombre">Justin David Mendoza Ortiz</span></div>
+              <div class="miembro" style="--i:2"><span class="avatar">KV</span><span class="nombre">Karol Juliana Villamil Villamil</span></div>
+              <div class="miembro" style="--i:3"><span class="avatar">NH</span><span class="nombre">Nicolas Herran Bedoya</span></div>
+              <div class="miembro" style="--i:4"><span class="avatar">JR</span><span class="nombre">Jeronimo Rodriguez Huertas</span></div>
+              <div class="miembro" style="--i:5"><span class="avatar">JC</span><span class="nombre">Juan Camilo Castillo Garavito</span></div>
+              <div class="miembro" style="--i:6"><span class="avatar">DD</span><span class="nombre">David Alejandro Diaz Farfan</span></div>
+              <div class="miembro" style="--i:7"><span class="avatar">L</span><span class="nombre">Laura</span></div>
+            </div>
           </div>
         </div>
       </section>
@@ -2671,12 +2746,6 @@
       bPrev.addEventListener("click", function (e) { ir(idx - 1); });
       bNext.addEventListener("click", function (e) { ir(idx + 1); });
       bPrev.disabled = true;
-
-      /* Si hacen clic en cualquier parte, las partículas nacen ahí */
-      document.querySelector(".deck").addEventListener("pointerdown", function (e) {
-        if (!arrancado) return;
-        explosionar(e.clientX, e.clientY);
-      });
 
       document.addEventListener("keydown", function (e) {
         if (!arrancado) return;
